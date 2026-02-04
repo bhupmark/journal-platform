@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Journal of Research</title>
+  <meta name="description" content="Editorial office address, email, phone, contact form, map.">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="antialiased">
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+      <a href="/" class="font-heading text-xl font-semibold text-[var(--color-primary)]">Journal of Research</a>
+      <nav data-nav class="flex flex-wrap items-center gap-6 text-slate-600">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/about" class="nav-link">About</a>
+        <a href="/editorial-board" class="nav-link">Editorial Board</a>
+        <a href="/submit" class="nav-link">Submit</a>
+        <a href="/issues" class="nav-link">Issues</a>
+        <a href="/guidelines" class="nav-link">Guidelines</a>
+        <a href="/indexing" class="nav-link">Indexing</a>
+        <a href="/contact" class="nav-link">Contact</a>
+        <a href="/login" class="nav-link">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="font-heading text-4xl text-[var(--color-primary)] mb-10">Contact Us</h1>
+
+    <div class="grid md:grid-cols-2 gap-10 mb-12">
+      <section>
+        <h2 class="font-heading text-xl text-slate-800 mb-4">Editorial Office</h2>
+        <address class="text-slate-600 not-italic space-y-2">
+          <p class="font-medium text-slate-800">Journal of Research</p>
+          <p>123 Academic Lane, Research Building</p>
+          <p>University City, XY 12345</p>
+          <p>Country</p>
+        </address>
+        <ul class="mt-4 space-y-2 text-slate-600">
+          <li><strong>General:</strong> <a href="mailto:contact@journal.example.com" class="text-[var(--color-primary)]">contact@journal.example.com</a></li>
+          <li><strong>Submissions:</strong> <a href="mailto:submissions@journal.example.com" class="text-[var(--color-primary)]">submissions@journal.example.com</a></li>
+          <li><strong>Editorial:</strong> <a href="mailto:editor@journal.example.com" class="text-[var(--color-primary)]">editor@journal.example.com</a></li>
+          <li><strong>Phone:</strong> +1 (555) 123-4567</li>
+          <li><strong>WhatsApp:</strong> +1 555 123 4567 (optional)</li>
+        </ul>
+      </section>
+      <section>
+        <h2 class="font-heading text-xl text-slate-800 mb-4">Send a Message</h2>
+        <form id="contact-form" class="space-y-4" action="/api/contact" method="post">
+          <div>
+            <label for="name" class="block text-sm font-medium text-slate-700 mb-1">Name *</label>
+            <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent">
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-slate-700 mb-1">Email *</label>
+            <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent">
+          </div>
+          <div>
+            <label for="subject" class="block text-sm font-medium text-slate-700 mb-1">Subject</label>
+            <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent">
+          </div>
+          <div>
+            <label for="message" class="block text-sm font-medium text-slate-700 mb-1">Message *</label>
+            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"></textarea>
+          </div>
+          <button type="submit" id="contact-submit" class="btn-primary px-6 py-3 rounded-lg font-medium">Send Message</button>
+        </form>
+      </section>
+    </div>
+
+    <section>
+      <h2 class="font-heading text-xl text-slate-800 mb-4">Map</h2>
+      <div class="bg-slate-200 rounded-xl h-64 flex items-center justify-center text-slate-500">
+        <p>Google Map embed: replace with your address iframe or link.</p>
+      </div>
+      <p class="text-slate-600 text-sm mt-2">
+        <a href="https://maps.google.com" target="_blank" rel="noopener" class="text-[var(--color-primary)]">Open in Google Maps →</a>
+      </p>
+    </section>
+  </main>
+
+  <footer class="bg-[var(--color-primary)] text-slate-300 py-12 px-4 mt-16">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+      <div>
+        <p class="font-heading text-white font-semibold text-lg">Journal of Research</p>
+        <p class="text-sm mt-1">ISSN 1234-5678 · Open Access · Peer Reviewed</p>
+      </div>
+      <div>
+        <p class="text-white font-medium mb-2">Quick links</p>
+        <ul class="space-y-1 text-sm">
+          <li><a href="/about">About</a></li>
+          <li><a href="/submit">Submit</a></li>
+          <li><a href="/issues">Issues</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-white font-medium mb-2">Policies</p>
+        <ul class="space-y-1 text-sm">
+          <li><a href="/guidelines">Guidelines</a></li>
+          <li><a href="/about#ethics">Ethics</a></li>
+          <li><a href="/about#copyright">Copyright</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="max-w-6xl mx-auto mt-8 pt-8 border-t border-slate-600 text-sm text-center">© 2025 Journal of Research. All rights reserved.</p>
+  </footer>
+  <script src="/js/app.js"></script>
+  <script>
+    (function() {
+      var form = document.getElementById('contact-form');
+      var btn = document.getElementById('contact-submit');
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.disabled = true;
+        fetch('/api/contact', { method: 'POST', body: new FormData(form), credentials: 'include', headers: { 'Accept': 'application/json' } })
+          .then(function(r) { return r.json(); })
+          .then(function(d) {
+            if (d.success) { alert('Message sent. We will respond shortly.'); form.reset(); }
+            else alert(d.message || 'Error.');
+            btn.disabled = false;
+          })
+          .catch(function() { alert('Network error.'); btn.disabled = false; });
+      });
+    })();
+  </script>
+</body>
+</html>

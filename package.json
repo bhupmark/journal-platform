@@ -1,0 +1,32 @@
+{
+  "name": "journal-platform",
+  "version": "1.0.0",
+  "description": "Academic Journal Management System - Open Access, Peer Review, Submissions",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "setup:db": "node scripts/init-db.js",
+    "check:db": "node scripts/check-db.js",
+    "delete:db": "node scripts/delete-db.js"
+  },
+  "keywords": [
+    "journal",
+    "open-access",
+    "peer-review",
+    "academic"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.7",
+    "pg": "^8.11.3",
+    "express-validator": "^7.0.1"
+  }
+}

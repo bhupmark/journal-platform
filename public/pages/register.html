@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | Journal of Research</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="antialiased">
+  <header class="bg-white border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 py-3">
+      <a href="/" class="font-heading text-xl font-semibold text-[var(--color-primary)]">Journal of Research</a>
+    </div>
+  </header>
+
+  <main class="max-w-md mx-auto px-4 py-16">
+    <h1 class="font-heading text-3xl text-[var(--color-primary)] mb-2">Register or Sign In</h1>
+    <p class="text-slate-600 mb-6">Create an author account or use quick sign-in for testing.</p>
+
+    <!-- Quick Sign In Buttons -->
+    <div class="mb-8 p-4 bg-slate-50 rounded">
+      <p class="text-xs text-slate-500 text-center mb-3">Quick Test Sign In (Development Only)</p>
+      <div class="grid grid-cols-2 gap-2">
+        <button onclick="quickLogin('author')" class="text-xs bg-white hover:bg-slate-100 border border-[var(--color-primary)] text-[var(--color-primary)] px-2 py-2 rounded font-medium">Author</button>
+        <button onclick="quickLogin('reviewer')" class="text-xs bg-blue-600 hover:bg-blue-700 text-white px-2 py-2 rounded font-medium">Reviewer</button>
+        <button onclick="quickLogin('editor')" class="text-xs bg-green-600 hover:bg-green-700 text-white px-2 py-2 rounded font-medium">Editor</button>
+        <button onclick="quickLogin('admin')" class="text-xs bg-red-600 hover:bg-red-700 text-white px-2 py-2 rounded font-medium">Admin</button>
+      </div>
+    </div>
+
+    <hr class="my-6">
+    <p class="text-sm text-slate-600 text-center mb-6">Or create a new author account below:</p>
+
+    <form id="register-form" class="space-y-4">
+      <div>
+        <label for="full_name" class="block text-sm font-medium text-slate-700 mb-1">Full name *</label>
+        <input type="text" id="full_name" name="full_name" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent">
+      </div>
+      <div>
+        <label for="email" class="block text-sm font-medium text-slate-700 mb-1">Email *</label>
+        <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent">
+      </div>
+      <div>
+        <label for="password" class="block text-sm font-medium text-slate-700 mb-1">Password (min 8 characters) *</label>
+        <input type="password" id="password" name="password" required minlength="8" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent">
+      </div>
+      <div>
+        <label for="affiliation" class="block text-sm font-medium text-slate-700 mb-1">Affiliation (optional)</label>
+        <input type="text" id="affiliation" name="affiliation" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent">
+      </div>
+      <div>
+        <label for="country" class="block text-sm font-medium text-slate-700 mb-1">Country (optional)</label>
+        <input type="text" id="country" name="country" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent">
+      </div>
+      <button type="submit" class="btn-primary w-full py-3 rounded-lg font-medium">Create account</button>
+    </form>
+
+    <p class="mt-6 text-slate-600 text-sm">
+      Already have an account? <a href="/login" class="text-[var(--color-primary)] font-medium">Login</a>
+    </p>
+    <p class="mt-4">
+      <a href="/" class="text-slate-500 text-sm">← Back to home</a>
+    </p>
+  </main>
+
+  <script>
+    function quickLogin(role) {
+      const email = `${role}@example.com`;
+      const fullName = role.charAt(0).toUpperCase() + role.slice(1);
+      const data = { 
+        email: email, 
+        password: 'test123', 
+        role: role,
+        full_name: fullName,
+        affiliation: 'Journal Platform'
+      };
+      fetch('/auth/login', { 
+        method: 'POST', 
+        body: JSON.stringify(data), 
+        credentials: 'include', 
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' } 
+      })
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (d.success) window.location.href = d.redirect || '/submit';
+          else alert(d.message || 'Login failed.');
+        })
+        .catch(function() { alert('Network error.'); });
+    }
+
+    document.getElementById('register-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var form = this;
+      var data = { email: form.email.value, password: form.password.value, full_name: form.full_name.value, affiliation: form.affiliation.value, country: form.country.value };
+      fetch('/auth/register', { method: 'POST', body: JSON.stringify(data), credentials: 'include', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' } })
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (d.success) window.location.href = d.redirect || '/submit';
+          else alert(d.message || (d.errors && d.errors[0] && d.errors[0].msg) || 'Registration failed.');
+        })
+        .catch(function() { alert('Network error.'); });
+    });
+  </script>
+</body>
+</html>

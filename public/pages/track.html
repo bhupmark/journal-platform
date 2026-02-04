@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Submission | Journal of Research</title>
+  <meta name="description" content="Track your manuscript status. Upload revisions when requested.">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="antialiased">
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+      <a href="/" class="font-heading text-xl font-semibold text-[var(--color-primary)]">Journal of Research</a>
+      <nav data-nav class="flex flex-wrap items-center gap-6 text-slate-600">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/about" class="nav-link">About</a>
+        <a href="/editorial-board" class="nav-link">Editorial Board</a>
+        <a href="/submit" class="nav-link">Submit</a>
+        <a href="/issues" class="nav-link">Issues</a>
+        <a href="/guidelines" class="nav-link">Guidelines</a>
+        <a href="/indexing" class="nav-link">Indexing</a>
+        <a href="/contact" class="nav-link">Contact</a>
+        <a href="/login" class="nav-link">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="font-heading text-4xl text-[var(--color-primary)] mb-2">Track Submission</h1>
+    <p class="text-slate-600 mb-8">View the status of your submissions. Log in to see your manuscripts.</p>
+
+    <div id="track-guest" class="bg-slate-50 rounded-xl border border-slate-200 p-6">
+      <p class="text-slate-700 mb-4">Please log in to track your submissions.</p>
+      <a href="/login" class="btn-primary px-6 py-3 rounded-lg font-medium inline-block">Login</a>
+    </div>
+
+    <div id="track-list" class="hidden">
+      <p class="text-slate-600 mb-4">Your submissions:</p>
+      <ul id="submissions-list" class="space-y-4">
+        <!-- Filled by JS from /api/submissions -->
+      </ul>
+      <p id="track-empty" class="text-slate-500 hidden">No submissions yet. <a href="/submit" class="text-[var(--color-primary)]">Submit a paper</a>.</p>
+    </div>
+  </main>
+
+  <footer class="bg-[var(--color-primary)] text-slate-300 py-12 px-4 mt-16">
+    <div class="max-w-6xl mx-auto text-center">
+      <p class="font-heading text-white font-semibold text-lg">Journal of Research</p>
+      <p class="text-sm mt-1">© 2025 Journal of Research. All rights reserved.</p>
+    </div>
+  </footer>
+  <script src="/js/app.js"></script>
+  <script>
+    fetch('/auth/me').then(r => r.json()).then(function(data) {
+      if (data.user) {
+        document.getElementById('track-guest').classList.add('hidden');
+        document.getElementById('track-list').classList.remove('hidden');
+        fetch('/api/submissions', { credentials: 'include' }).then(r => r.json()).then(function(d) {
+          var list = document.getElementById('submissions-list');
+          var empty = document.getElementById('track-empty');
+          if (!d.data || d.data.length === 0) {
+            list.innerHTML = '';
+            empty.classList.remove('hidden');
+          } else {
+            empty.classList.add('hidden');
+            list.innerHTML = d.data.map(function(s) {
+              return '<li class="bg-white border border-slate-200 rounded-lg p-4 shadow-sm">' +
+                '<p class="font-semibold text-slate-800">' + (s.title || 'Untitled') + '</p>' +
+                '<p class="text-sm text-slate-600">ID: ' + s.id + ' · Status: ' + (s.status || 'submitted') + '</p>' +
+                (s.status === 'revision_requested' ? '<p class="text-sm mt-2"><a href="#" class="text-[var(--color-primary)]">Upload revision</a></p>' : '') +
+                '</li>';
+            }).join('');
+          }
+        }).catch(function() {
+          document.getElementById('track-empty').classList.remove('hidden');
+          document.getElementById('submissions-list').innerHTML = '';
+        });
+      }
+    }).catch(function() {});
+  </script>
+</body>
+</html>

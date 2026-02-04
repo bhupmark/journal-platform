@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paper Submission | Journal of Research</title>
+  <meta name="description" content="Submit your manuscript. Author registration, upload PDF/DOC, track status.">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="antialiased">
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+      <a href="/" class="font-heading text-xl font-semibold text-[var(--color-primary)]">Journal of Research</a>
+      <nav data-nav class="flex flex-wrap items-center gap-6 text-slate-600">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/about" class="nav-link">About</a>
+        <a href="/editorial-board" class="nav-link">Editorial Board</a>
+        <a href="/submit" class="nav-link">Submit</a>
+        <a href="/issues" class="nav-link">Issues</a>
+        <a href="/guidelines" class="nav-link">Guidelines</a>
+        <a href="/indexing" class="nav-link">Indexing</a>
+        <a href="/contact" class="nav-link">Contact</a>
+        <a href="/login" class="nav-link">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-2xl mx-auto px-4 py-12">
+    <h1 class="font-heading text-4xl text-[var(--color-primary)] mb-2">Paper Submission</h1>
+    <p class="text-slate-600 mb-8">Submit your manuscript after reading the <a href="/guidelines" class="text-[var(--color-primary)]">author guidelines</a>. You must be logged in as an author.</p>
+
+    <div id="submit-guest" class="bg-slate-50 rounded-xl border border-slate-200 p-6 mb-8">
+      <p class="text-slate-700 mb-4">To submit a paper, please log in or register as an author.</p>
+      <div class="flex gap-4">
+        <a href="/login" class="btn-primary px-6 py-3 rounded-lg font-medium inline-block">Login</a>
+        <a href="/register" class="px-6 py-3 rounded-lg border border-slate-300 text-slate-700 font-medium inline-block hover:bg-slate-100">Register</a>
+      </div>
+    </div>
+
+    <div id="submit-form" class="hidden">
+      <form id="submission-form" class="space-y-6" action="/api/submissions" method="post" enctype="multipart/form-data">
+        <div>
+          <label for="title" class="block text-sm font-medium text-slate-700 mb-1">Title of manuscript *</label>
+          <input type="text" id="title" name="title" required maxlength="500" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent">
+        </div>
+        <div>
+          <label for="abstract" class="block text-sm font-medium text-slate-700 mb-1">Abstract *</label>
+          <textarea id="abstract" name="abstract" required rows="6" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"></textarea>
+        </div>
+        <div>
+          <label for="manuscript" class="block text-sm font-medium text-slate-700 mb-1">Manuscript file (PDF or DOC) *</label>
+          <input type="file" id="manuscript" name="manuscript" accept=".pdf,.doc,.docx" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)]">
+          <p class="text-slate-500 text-sm mt-1">Max 10 MB. Use journal template.</p>
+        </div>
+        <button type="submit" class="btn-primary px-8 py-3 rounded-lg font-medium">Submit manuscript</button>
+      </form>
+    </div>
+
+    <section class="mt-12 pt-8 border-t border-slate-200">
+      <h2 class="font-heading text-xl text-slate-800 mb-4">After submission</h2>
+      <ul class="text-slate-600 space-y-2 list-disc list-inside">
+        <li>You will receive an email confirmation with a submission ID.</li>
+        <li>Track your submission status at <a href="/track" class="text-[var(--color-primary)]">Track submission</a>.</li>
+        <li>Revisions can be uploaded via the track page when requested by the editor.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="bg-[var(--color-primary)] text-slate-300 py-12 px-4 mt-16">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+      <div>
+        <p class="font-heading text-white font-semibold text-lg">Journal of Research</p>
+        <p class="text-sm mt-1">ISSN 1234-5678 · Open Access · Peer Reviewed</p>
+      </div>
+      <div>
+        <p class="text-white font-medium mb-2">Quick links</p>
+        <ul class="space-y-1 text-sm">
+          <li><a href="/about">About</a></li>
+          <li><a href="/submit">Submit</a></li>
+          <li><a href="/issues">Issues</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-white font-medium mb-2">Policies</p>
+        <ul class="space-y-1 text-sm">
+          <li><a href="/guidelines">Guidelines</a></li>
+          <li><a href="/about#ethics">Ethics</a></li>
+          <li><a href="/about#copyright">Copyright</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="max-w-6xl mx-auto mt-8 pt-8 border-t border-slate-600 text-sm text-center">© 2025 Journal of Research. All rights reserved.</p>
+  </footer>
+  <script src="/js/app.js"></script>
+  <script>
+    (function() {
+      fetch('/auth/me').then(r => r.json()).then(function(data) {
+        if (data.user && ['author', 'admin'].includes(data.user.role)) {
+          document.getElementById('submit-guest').classList.add('hidden');
+          document.getElementById('submit-form').classList.remove('hidden');
+        }
+      }).catch(function() {});
+      var form = document.getElementById('submission-form');
+      if (form) form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var fd = new FormData(form);
+        fetch(form.action, { method: 'POST', body: fd, credentials: 'include' })
+          .then(function(r) { return r.json(); })
+          .then(function(d) {
+            if (d.id) alert('Submission received. ID: ' + d.id + '. You will receive an email confirmation.');
+            else alert(d.message || 'Error.');
+          })
+          .catch(function() { alert('Network error.'); });
+      });
+    })();
+  </script>
+</body>
+</html>
