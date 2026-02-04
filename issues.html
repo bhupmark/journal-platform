@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Current & Past Issues | Journal of Research</title>
+  <meta name="description" content="Browse volumes and issues. Article titles, authors, abstract, DOI, PDF, citation.">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="antialiased">
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+      <a href="/" class="font-heading text-xl font-semibold text-[var(--color-primary)]">Journal of Research</a>
+      <nav data-nav class="flex flex-wrap items-center gap-6 text-slate-600">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/about" class="nav-link">About</a>
+        <a href="/editorial-board" class="nav-link">Editorial Board</a>
+        <a href="/submit" class="nav-link">Submit</a>
+        <a href="/issues" class="nav-link">Issues</a>
+        <a href="/guidelines" class="nav-link">Guidelines</a>
+        <a href="/indexing" class="nav-link">Indexing</a>
+        <a href="/contact" class="nav-link">Contact</a>
+        <a href="/login" class="nav-link">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-12">
+    <h1 class="font-heading text-4xl text-[var(--color-primary)] mb-10">Current & Past Issues</h1>
+
+    <section class="mb-10">
+      <h2 class="font-heading text-2xl text-slate-800 mb-6">Browse by year & volume</h2>
+      <div class="flex flex-wrap gap-4 mb-8">
+        <select id="year-filter" class="px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)]">
+          <option value="">All years</option>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+        </select>
+        <select id="volume-filter" class="px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)]">
+          <option value="">All volumes</option>
+          <option value="12">Vol. 12</option>
+          <option value="11">Vol. 11</option>
+        </select>
+      </div>
+
+      <div class="space-y-8">
+        <article class="border border-slate-200 rounded-xl overflow-hidden shadow-sm bg-white">
+          <header class="bg-slate-50 px-6 py-4 border-b border-slate-200">
+            <h3 class="font-heading text-xl text-[var(--color-primary)]">Vol. 12, No. 3 (2024)</h3>
+            <p class="text-slate-600 text-sm">Current issue · Published October 2024</p>
+          </header>
+          <ul class="divide-y divide-slate-100">
+            <li class="p-6">
+              <h4 class="font-semibold text-slate-800 mb-1"><a href="#" class="hover:text-[var(--color-primary)]">Machine Learning Applications in Climate Modeling</a></h4>
+              <p class="text-slate-600 text-sm mb-2">John Smith, Jane Doe, Alan Brown</p>
+              <p class="text-slate-600 text-sm mb-3 line-clamp-2">An overview of recent advances in applying ML to climate prediction and impact assessment.</p>
+              <div class="flex flex-wrap gap-4 text-sm">
+                <a href="#" class="text-[var(--color-primary)]">DOI</a>
+                <a href="#" class="text-[var(--color-primary)]">PDF</a>
+                <span class="text-slate-500">APA · IEEE</span>
+              </div>
+            </li>
+            <li class="p-6">
+              <h4 class="font-semibold text-slate-800 mb-1"><a href="#" class="hover:text-[var(--color-primary)]">Ethics of AI in Healthcare</a></h4>
+              <p class="text-slate-600 text-sm mb-2">Maria Garcia, Ken Tanaka</p>
+              <p class="text-slate-600 text-sm mb-3 line-clamp-2">Examining ethical frameworks for deployment of AI systems in clinical settings.</p>
+              <div class="flex flex-wrap gap-4 text-sm">
+                <a href="#" class="text-[var(--color-primary)]">DOI</a>
+                <a href="#" class="text-[var(--color-primary)]">PDF</a>
+                <span class="text-slate-500">APA · IEEE</span>
+              </div>
+            </li>
+            <li class="p-6">
+              <h4 class="font-semibold text-slate-800 mb-1"><a href="#" class="hover:text-[var(--color-primary)]">Sustainable Materials for Construction</a></h4>
+              <p class="text-slate-600 text-sm mb-2">Sarah Lee, James Wilson</p>
+              <p class="text-slate-600 text-sm mb-3 line-clamp-2">Review of low-carbon and recycled materials in building and infrastructure.</p>
+              <div class="flex flex-wrap gap-4 text-sm">
+                <a href="#" class="text-[var(--color-primary)]">DOI</a>
+                <a href="#" class="text-[var(--color-primary)]">PDF</a>
+                <span class="text-slate-500">APA · IEEE</span>
+              </div>
+            </li>
+          </ul>
+        </article>
+
+        <article class="border border-slate-200 rounded-xl overflow-hidden shadow-sm bg-white">
+          <header class="bg-slate-50 px-6 py-4 border-b border-slate-200">
+            <h3 class="font-heading text-xl text-[var(--color-primary)]">Vol. 12, No. 2 (2024)</h3>
+            <p class="text-slate-600 text-sm">Published July 2024</p>
+          </header>
+          <ul class="divide-y divide-slate-100">
+            <li class="p-6">
+              <h4 class="font-semibold text-slate-800 mb-1"><a href="#" class="hover:text-[var(--color-primary)]">Sample article title</a></h4>
+              <p class="text-slate-600 text-sm mb-2">Author names</p>
+              <p class="text-slate-600 text-sm mb-3">Abstract excerpt.</p>
+              <div class="flex flex-wrap gap-4 text-sm">
+                <a href="#" class="text-[var(--color-primary)]">DOI</a>
+                <a href="#" class="text-[var(--color-primary)]">PDF</a>
+                <span class="text-slate-500">APA · IEEE</span>
+              </div>
+            </li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-[var(--color-primary)] text-slate-300 py-12 px-4 mt-16">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+      <div>
+        <p class="font-heading text-white font-semibold text-lg">Journal of Research</p>
+        <p class="text-sm mt-1">ISSN 1234-5678 · Open Access · Peer Reviewed</p>
+      </div>
+      <div>
+        <p class="text-white font-medium mb-2">Quick links</p>
+        <ul class="space-y-1 text-sm">
+          <li><a href="/about">About</a></li>
+          <li><a href="/submit">Submit</a></li>
+          <li><a href="/issues">Issues</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-white font-medium mb-2">Policies</p>
+        <ul class="space-y-1 text-sm">
+          <li><a href="/guidelines">Guidelines</a></li>
+          <li><a href="/about#ethics">Ethics</a></li>
+          <li><a href="/about#copyright">Copyright</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="max-w-6xl mx-auto mt-8 pt-8 border-t border-slate-600 text-sm text-center">© 2025 Journal of Research. All rights reserved.</p>
+  </footer>
+  <script src="/js/app.js"></script>
+</body>
+</html>
