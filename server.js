@@ -31,34 +31,9 @@ const apiRouter = require('./routes/api');
 const authRouter = require('./routes/auth');
 app.use('/api', apiRouter);
 app.use('/auth', authRouter);
-// Role-protected panel routes (admin/editor/reviewer) - load if present
-const panelsPath = path.join(__dirname, 'routes', 'panels.js');
-if (fs.existsSync(panelsPath)) {
-  try {
-    const panelsRouter = require('./routes/panels');
-    app.use('/', panelsRouter);
-  } catch (err) {
-    console.warn('Could not load routes/panels.js:', err.message);
-  }
-} else {
-  // panels.js is optional; continue without role-protected page routes
-  console.info('routes/panels.js not found — skipping panel routes.');
-}
-
-// Reviewer portal (role-protected)
-const requireAuth = (req, res, next) => {
-  if (!req.session || !req.session.user) return res.redirect('/login');
-  next();
-};
-const requireRole = (...roles) => (req, res, next) => {
-  if (!req.session || !req.session.user) return res.redirect('/login');
-  if (!roles.includes(req.session.user.role)) return res.status(403).send('Forbidden');
-  next();
-};
-
-app.get('/reviewer-portal', requireAuth, requireRole('reviewer', 'editor', 'admin'), (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'pages', 'reviewer-portal.html'));
-});
+// Role-protected panel routes (admin/editor/reviewer)
+const panelsRouter = require('./routes/panels');
+app.use('/', panelsRouter);
 
 // Page routes - serve HTML from public/pages
 const pages = [

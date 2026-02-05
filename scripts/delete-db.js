@@ -1,68 +1,48 @@
 require('dotenv').config();
-const { Client } = require('pg');
+const mysql = require('mysql2/promise');
 
 async function deleteDb() {
-    console.log('Deleting database...');
+    console.log('Deleting MySQL database...');
 
-    let dbUrl = process.env.DATABASE_URL;
-    if (!dbUrl) {
-        console.error('DATABASE_URL is not defined in .env');
+    const dbHost = process.env.DB_HOST || 'localhost';
+    const dbPort = process.env.DB_PORT || 3306;
+    const dbUser = process.env.DB_USER || 'root';
+    const dbPassword = process.env.DB_PASSWORD || '';
+    const dbName = process.env.DB_NAME || 'journal_db';
+
+    if (!dbHost || !dbUser) {
+        console.error('DB_HOST and DB_USER are required in .env');
         process.exit(1);
     }
 
-    let urlObj;
+    let connection;
     try {
-        urlObj = new URL(dbUrl);
-    } catch (e) {
-        console.error('Invalid DATABASE_URL:', e.message);
-        process.exit(1);
-    }
-
-    const targetDbName = urlObj.pathname.split('/')[1];
-    if (!targetDbName) {
-        console.error('Database name not found in connection string');
-        process.exit(1);
-    }
-
-    // Connect to 'postgres' database to perform administrative tasks
-    urlObj.pathname = '/postgres';
-    const postgresUrl = urlObj.toString();
-
-    const maintenanceClient = new Client({
-        connectionString: postgresUrl,
-        ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
-    });
-
-    try {
-        await maintenanceClient.connect();
-        console.log('Connected to maintenance DB (postgres).');
+        connection = await mysql.createConnection({
+            host: dbHost,
+            port: dbPort,
+            user: dbUser,
+            password: dbPassword
+        });
+        console.log('Connected to MySQL server.');
 
         // Check if database exists
-        const res = await maintenanceClient.query(`SELECT 1 FROM pg_database WHERE datname = $1`, [targetDbName]);
+        const [dbs] = await connection.query(`SHOW DATABASES LIKE ?`, [dbName]);
 
-        if (res.rowCount === 0) {
-            console.log(`Database '${targetDbName}' does not exist.`);
+        if (dbs.length === 0) {
+            console.log(`Database '${dbName}' does not exist.`);
         } else {
-            console.log(`Database '${targetDbName}' exists. Terminating connections...`);
-
-            // Terminate other connections to the database
-            await maintenanceClient.query(`
-                SELECT pg_terminate_backend(pid)
-                FROM pg_stat_activity
-                WHERE datname = $1
-                  AND pid <> pg_backend_pid()
-            `, [targetDbName]);
-
-            console.log(`Dropping database '${targetDbName}'...`);
-            await maintenanceClient.query(`DROP DATABASE "${targetDbName}"`);
-            console.log(`Database '${targetDbName}' deleted successfully.`);
+            console.log(`Database '${dbName}' exists. Dropping...`);
+            await connection.query(`DROP DATABASE ${mysql.escapeId(dbName)}`);
+            console.log(`Database '${dbName}' deleted successfully.`);
         }
 
     } catch (err) {
-        console.error('Error deleting database:', err);
+        console.error('Error deleting database:', err.message);
         process.exit(1);
     } finally {
-        await maintenanceClient.end();
+        if (connection) {
+            await connection.end();
+        }
     }
 }
 

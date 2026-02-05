@@ -1,102 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <title>About Journal | IRJMETS</title>
-    <link rel="stylesheet" href="about.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | Journal of Research</title>
+  <meta name="description" content="Learn about the Journal of Research, our mission, vision, scope, and publication details.">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<body class="antialiased">
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+      <a href="/" class="font-heading text-xl font-semibold text-[var(--color-primary)]">Journal of Research</a>
+      <nav data-nav class="flex flex-wrap items-center gap-6 text-slate-600">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/about" class="nav-link">About</a>
+        <a href="/editorial-board" class="nav-link">Editorial Board</a>
+        <a href="/submit" class="nav-link">Submit</a>
+        <a href="/issues" class="nav-link">Issues</a>
+        <a href="/guidelines" class="nav-link">Guidelines</a>
+        <a href="/indexing" class="nav-link">Indexing</a>
+        <a href="/contact" class="nav-link">Contact</a>
+        <a href="/login" class="nav-link">Login</a>
+      </nav>
+    </div>
+  </header>
 
-<body>
+  <main class="max-w-5xl mx-auto px-4 py-12">
+    <!-- Hero Section -->
+    <div class="mb-12">
+      <h1 class="font-heading text-4xl text-[var(--color-primary)] mb-3">About the Journal</h1>
+      <p class="text-slate-600 text-lg">International Research Journal of Modernization in Engineering, Technology and Science</p>
+    </div>
 
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <h1>About the Journal</h1>
-            <p>International Research Journal of Modernization in Engineering, Technology and Science</p>
-        </div>
-    </header>
-
-    <!-- About Section -->
-    <section class="about">
-        <div class="container">
-            <h2>Journal Overview</h2>
-            <p>
-                The <strong>International Research Journal of Modernization in Engineering, Technology and Science
-                    (IRJMETS)</strong>
-                is a peer-reviewed, open-access international journal dedicated to publishing high-quality research
-                papers
-                in the fields of Engineering, Science, Technology, and allied disciplines.
-            </p>
-
-            <p>
-                The journal aims to provide a global platform for researchers, academicians, industry professionals,
-                and students to share innovative ideas, experimental results, and emerging technologies.
-            </p>
-        </div>
+    <!-- Overview Section -->
+    <section class="mb-12">
+      <h2 class="font-heading text-2xl text-[var(--color-primary)] mb-4">Journal Overview</h2>
+      <div class="bg-blue-50 rounded-lg border border-blue-200 p-6 space-y-4">
+        <p class="text-slate-700">
+          The <strong>International Research Journal of Modernization in Engineering, Technology and Science (IRJMETS)</strong> is a peer-reviewed, open-access international journal dedicated to publishing high-quality research papers in the fields of Engineering, Science, Technology, and allied disciplines.
+        </p>
+        <p class="text-slate-700">
+          The journal aims to provide a global platform for researchers, academicians, industry professionals, and students to share innovative ideas, experimental results, and emerging technologies.
+        </p>
+      </div>
     </section>
 
-    <!-- Vision & Mission -->
-    <section class="vision-mission">
-        <div class="container grid">
-            <div class="card">
-                <h3>Our Vision</h3>
-                <p>
-                    To become a globally recognized research journal that promotes innovation, quality research,
-                    and technological advancement for societal development.
-                </p>
-            </div>
-
-            <div class="card">
-                <h3>Our Mission</h3>
-                <ul>
-                    <li>Encourage original and innovative research</li>
-                    <li>Maintain high ethical publication standards</li>
-                    <li>Provide rapid and transparent peer review</li>
-                    <li>Support interdisciplinary research</li>
-                </ul>
-            </div>
+    <!-- Vision & Mission Section -->
+    <section class="mb-12">
+      <h2 class="font-heading text-2xl text-[var(--color-primary)] mb-6">Vision & Mission</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-lg border border-indigo-200 p-6 shadow-sm hover:shadow-md transition">
+          <h3 class="font-heading text-xl text-[var(--color-primary)] mb-3 flex items-center gap-2">
+            <span class="text-2xl">🎯</span> Our Vision
+          </h3>
+          <p class="text-slate-700">
+            To become a globally recognized research journal that promotes innovation, quality research, and technological advancement for societal development.
+          </p>
         </div>
+        <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg border border-green-200 p-6 shadow-sm hover:shadow-md transition">
+          <h3 class="font-heading text-xl text-[var(--color-primary)] mb-3 flex items-center gap-2">
+            <span class="text-2xl">📋</span> Our Mission
+          </h3>
+          <ul class="text-slate-700 space-y-2">
+            <li class="flex items-start gap-2">
+              <span class="text-[var(--color-primary)] mt-1">✓</span>
+              <span>Encourage original and innovative research</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-[var(--color-primary)] mt-1">✓</span>
+              <span>Maintain high ethical publication standards</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-[var(--color-primary)] mt-1">✓</span>
+              <span>Provide rapid and transparent peer review</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-[var(--color-primary)] mt-1">✓</span>
+              <span>Support interdisciplinary research</span>
+            </li>
+          </ul>
+        </div>
+      </div>
     </section>
 
-    <!-- Scope -->
-    <section class="scope">
-        <div class="container">
-            <h2>Scope of the Journal</h2>
-            <p>The journal accepts research papers, review papers, and case studies in areas including but not limited
-                to:</p>
-
-            <div class="tags">
-                <span>Engineering</span>
-                <span>Computer Science</span>
-                <span>Artificial Intelligence</span>
-                <span>Data Science</span>
-                <span>Electronics</span>
-                <span>Mechanical Engineering</span>
-                <span>Civil Engineering</span>
-                <span>Applied Sciences</span>
-            </div>
-        </div>
+    <!-- Scope Section -->
+    <section class="mb-12">
+      <h2 class="font-heading text-2xl text-[var(--color-primary)] mb-6">Scope of the Journal</h2>
+      <p class="text-slate-600 mb-6">
+        The journal accepts research papers, review papers, and case studies in areas including but not limited to:
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <span class="bg-[var(--color-primary)] text-white px-4 py-2 rounded-full text-sm font-medium">Engineering</span>
+        <span class="bg-[var(--color-primary)] text-white px-4 py-2 rounded-full text-sm font-medium">Computer Science</span>
+        <span class="bg-[var(--color-primary)] text-white px-4 py-2 rounded-full text-sm font-medium">Artificial Intelligence</span>
+        <span class="bg-[var(--color-primary)] text-white px-4 py-2 rounded-full text-sm font-medium">Data Science</span>
+        <span class="bg-[var(--color-primary)] text-white px-4 py-2 rounded-full text-sm font-medium">Electronics</span>
+        <span class="bg-[var(--color-primary)] text-white px-4 py-2 rounded-full text-sm font-medium">Mechanical Engineering</span>
+        <span class="bg-[var(--color-primary)] text-white px-4 py-2 rounded-full text-sm font-medium">Civil Engineering</span>
+        <span class="bg-[var(--color-primary)] text-white px-4 py-2 rounded-full text-sm font-medium">Applied Sciences</span>
+      </div>
     </section>
 
-    <!-- Publication Details -->
-    <section class="details">
-        <div class="container">
-            <h2>Publication Details</h2>
-            <ul class="details-list">
-                <li><strong>Journal Type:</strong> Peer-Reviewed, Open Access</li>
-                <li><strong>Frequency:</strong> Monthly</li>
-                <li><strong>Language:</strong> English</li>
-                <li><strong>Review Process:</strong> Double-Blind Peer Review</li>
-            </ul>
+    <!-- Publication Details Section -->
+    <section class="mb-12">
+      <h2 class="font-heading text-2xl text-[var(--color-primary)] mb-6">Publication Details</h2>
+      <div class="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+        <div class="divide-y divide-slate-200">
+          <div class="flex justify-between items-center p-4 hover:bg-slate-50 transition">
+            <span class="font-semibold text-slate-800">Journal Type:</span>
+            <span class="text-slate-600">Peer-Reviewed, Open Access</span>
+          </div>
+          <div class="flex justify-between items-center p-4 hover:bg-slate-50 transition">
+            <span class="font-semibold text-slate-800">Frequency:</span>
+            <span class="text-slate-600">Monthly</span>
+          </div>
+          <div class="flex justify-between items-center p-4 hover:bg-slate-50 transition">
+            <span class="font-semibold text-slate-800">Language:</span>
+            <span class="text-slate-600">English</span>
+          </div>
+          <div class="flex justify-between items-center p-4 hover:bg-slate-50 transition">
+            <span class="font-semibold text-slate-800">Review Process:</span>
+            <span class="text-slate-600">Double-Blind Peer Review</span>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>© 2026 IRJMETS | All Rights Reserved</p>
-    </footer>
+    <!-- Call to Action -->
+    <section class="bg-gradient-to-r from-slate-50 to-slate-100 rounded-xl border border-slate-200 p-8 text-center">
+      <h3 class="font-heading text-xl text-[var(--color-primary)] mb-3">Ready to Contribute?</h3>
+      <p class="text-slate-600 mb-6">Submit your research and be part of our growing community of scholars and researchers.</p>
+      <a href="/submit" class="inline-block btn bg-[var(--color-primary)] text-white px-8 py-3 rounded-lg font-medium hover:opacity-90 transition">Submit Your Paper</a>
+    </section>
+  </main>
 
+  <footer class="bg-[var(--color-primary)] text-slate-300 py-12 px-4 mt-16">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+      <div>
+        <p class="font-heading text-white font-semibold text-lg">Journal of Research</p>
+        <p class="text-sm mt-1">ISSN 1234-5678 · Open Access · Peer Reviewed</p>
+      </div>
+      <div>
+        <p class="text-white font-medium mb-2">Quick links</p>
+        <ul class="space-y-1 text-sm">
+          <li><a href="/about">About</a></li>
+          <li><a href="/submit">Submit</a></li>
+          <li><a href="/issues">Issues</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-white font-medium mb-2">Policies</p>
+        <ul class="space-y-1 text-sm">
+          <li><a href="/guidelines">Guidelines</a></li>
+          <li><a href="/about#ethics">Ethics</a></li>
+          <li><a href="/about#copyright">Copyright</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="max-w-6xl mx-auto mt-8 pt-8 border-t border-slate-600 text-sm text-center">© 2025 Journal of Research. All rights reserved.</p>
+  </footer>
+  <script src="/js/app.js"></script>
 </body>
-
 </html>

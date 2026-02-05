@@ -1,84 +1,78 @@
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
-const { Client } = require('pg');
+const mysql = require('mysql2/promise');
 
 const schemaPath = path.join(__dirname, '..', 'db', 'schema.sql');
 const schemaSql = fs.readFileSync(schemaPath, 'utf8');
 
 async function initDb() {
-    console.log('Initializing database...');
+    console.log('Initializing MySQL database...');
 
-    // 1. connect to default 'postgres' db to check/create journal_db
-    let dbUrl = process.env.DATABASE_URL;
-    if (!dbUrl) {
-        console.error('DATABASE_URL is not defined in .env');
+    const dbHost = process.env.DB_HOST || 'localhost';
+    const dbPort = process.env.DB_PORT || 3306;
+    const dbUser = process.env.DB_USER || 'root';
+    const dbPassword = process.env.DB_PASSWORD || '';
+    const dbName = process.env.DB_NAME || 'journal_db';
+
+    if (!dbHost || !dbUser) {
+        console.error('DB_HOST and DB_USER are required in .env');
         process.exit(1);
     }
 
-    // Parse URL to replace dbname with 'postgres'
-    let urlObj;
+    // 1. Connect to MySQL server (without database) to create database if it doesn't exist
+    let connection;
     try {
-        urlObj = new URL(dbUrl);
-    } catch (e) {
-        console.error('Invalid DATABASE_URL:', e.message);
-        process.exit(1);
-    }
+        connection = await mysql.createConnection({
+            host: dbHost,
+            port: dbPort,
+            user: dbUser,
+            password: dbPassword
+        });
+        console.log('Connected to MySQL server.');
 
-    const targetDbName = urlObj.pathname.split('/')[1];
-    if (!targetDbName) {
-        console.error('Database name not found in connection string');
-        process.exit(1);
-    }
-
-    urlObj.pathname = '/postgres';
-    const postgresUrl = urlObj.toString();
-
-    const maintenanceClient = new Client({
-        connectionString: postgresUrl,
-        ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
-    });
-
-    try {
-        await maintenanceClient.connect();
-        console.log('Connected to maintenance DB (postgres).');
-
-        // Check if target DB exists
-        const res = await maintenanceClient.query(`SELECT 1 FROM pg_database WHERE datname = $1`, [targetDbName]);
-        if (res.rowCount === 0) {
-            console.log(`Database '${targetDbName}' does not exist. Creating...`);
-            // CREATE DATABASE cannot run inside a transaction block, so we use simple query
-            await maintenanceClient.query(`CREATE DATABASE "${targetDbName}"`);
-            console.log(`Database '${targetDbName}' created successfully.`);
+        // Check if database exists
+        const [dbs] = await connection.query(`SHOW DATABASES LIKE ?`, [dbName]);
+        if (dbs.length === 0) {
+            console.log(`Database '${dbName}' does not exist. Creating...`);
+            await connection.query(`CREATE DATABASE ${mysql.escapeId(dbName)}`);
+            console.log(`Database '${dbName}' created successfully.`);
         } else {
-            console.log(`Database '${targetDbName}' already exists.`);
+            console.log(`Database '${dbName}' already exists.`);
         }
 
-        await maintenanceClient.end();
+        await connection.end();
     } catch (err) {
-        console.error('Error connecting to maintenance DB:', err.message);
-        console.log('Attempting to connect directly to target DB in case it exists and we do not have access to postgres db...');
+        console.error('Error connecting to MySQL:', err.message);
+        process.exit(1);
     }
 
-    // 2. Connect to the target DB and run schema
-    const client = new Client({
-        connectionString: dbUrl,
-        ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
-    });
-
+    // 2. Connect to the target database and run schema
     try {
-        await client.connect();
-        console.log(`Connected to ${targetDbName}.`);
+        connection = await mysql.createConnection({
+            host: dbHost,
+            port: dbPort,
+            user: dbUser,
+            password: dbPassword,
+            database: dbName
+        });
+        console.log(`Connected to database '${dbName}'.`);
 
+        // Split schema by semicolons and execute each statement
         console.log('Running schema...');
-        await client.query(schemaSql);
+        const statements = schemaSql.split(';').filter(stmt => stmt.trim());
+        
+        for (const statement of statements) {
+            if (statement.trim()) {
+                await connection.query(statement);
+            }
+        }
+        
         console.log('Schema applied successfully.');
-
+        await connection.end();
     } catch (err) {
         console.error('Error applying schema:', err.message);
         process.exit(1);
-    } finally {
-        await client.end();
     }
 }
 

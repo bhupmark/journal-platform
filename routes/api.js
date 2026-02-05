@@ -69,60 +69,6 @@ router.post('/submissions/:id/revisions', requireAuth, upload.single('file'), (r
   res.status(201).json({ success: true });
 });
 
-// Reviewer: get assigned papers (submissions to review)
-router.get('/reviewer/assignments', requireAuth, requireRole('reviewer', 'editor', 'admin'), (req, res) => {
-  const db = getDb();
-  if (!db) {
-    // Mock data for testing without DB
-    return res.json({ 
-      data: [
-        { id: 1, title: 'Machine Learning Advances', authors: 'Smith et al.', abstract: 'A paper on ML...', status: 'under_review', submitted_at: '2025-01-15' },
-        { id: 2, title: 'Cloud Computing Security', authors: 'Johnson et al.', abstract: 'Security in cloud...', status: 'under_review', submitted_at: '2025-01-20' }
-      ] 
-    });
-  }
-  const reviewerId = req.session.user.id;
-  // TODO: query reviews JOIN submissions where reviewer_id = $1 and submitted_at IS NULL
-  res.json({ data: [] });
-});
-
-// Reviewer: get a single paper to review
-router.get('/reviewer/assignments/:submissionId', requireAuth, requireRole('reviewer', 'editor', 'admin'), (req, res) => {
-  const db = getDb();
-  const submissionId = req.params.submissionId;
-  if (!db) {
-    // Mock data for testing
-    return res.json({ 
-      data: {
-        id: submissionId,
-        title: 'Machine Learning Advances',
-        authors: 'Smith et al.',
-        abstract: 'A comprehensive paper on ML techniques.',
-        manuscript_path: '/uploads/sample-paper.pdf',
-        status: 'under_review',
-        submitted_at: '2025-01-15'
-      }
-    });
-  }
-  // TODO: query submission, verify reviewer is assigned
-  res.json({ data: {} });
-});
-
-// Reviewer: submit review for a paper
-router.post('/reviews', requireAuth, requireRole('reviewer', 'editor', 'admin'), (req, res) => {
-  const db = getDb();
-  if (!db) {
-    return res.status(503).json({ message: 'Database not configured.' });
-  }
-  const { submission_id, recommendation, comment_author, comment_editor } = req.body || {};
-  const reviewerId = req.session.user.id;
-  if (!submission_id || !recommendation) {
-    return res.status(400).json({ message: 'submission_id and recommendation required.' });
-  }
-  // TODO: insert review, mark as submitted_at NOW()
-  res.status(201).json({ id: 1, submission_id, recommendation, message: 'Review submitted.' });
-});
-
 // Contact form (public)
 router.post('/contact', (req, res) => {
   const { name, email, subject, message } = req.body || {};

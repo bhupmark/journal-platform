@@ -1,105 +1,114 @@
--- Journal Platform - PostgreSQL Schema
--- Run this after creating database: psql -d journal_db -f db/schema.sql
+-- Journal Platform - MySQL Schema
+-- Run this after creating database: mysql -u root -p journal_db < db/schema.sql
 
--- User roles: admin, editor, reviewer, author, reader
-CREATE TYPE user_role AS ENUM ('admin', 'editor', 'reviewer', 'author', 'reader');
-
-CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
+-- Users table
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
   email VARCHAR(255) UNIQUE NOT NULL,
   password_hash VARCHAR(255) NOT NULL,
   full_name VARCHAR(255) NOT NULL,
   affiliation VARCHAR(255),
   country VARCHAR(100),
-  role user_role NOT NULL DEFAULT 'author',
+  role ENUM('admin', 'editor', 'reviewer', 'author', 'reader') NOT NULL DEFAULT 'author',
   profile_url TEXT,
   is_active BOOLEAN DEFAULT true,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE announcements (
-  id SERIAL PRIMARY KEY,
+-- Announcements table
+CREATE TABLE IF NOT EXISTS announcements (
+  id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(500) NOT NULL,
   body TEXT,
   is_pinned BOOLEAN DEFAULT false,
-  created_at TIMESTAMPTZ DEFAULT NOW()
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE issues (
-  id SERIAL PRIMARY KEY,
+-- Issues table
+CREATE TABLE IF NOT EXISTS issues (
+  id INT AUTO_INCREMENT PRIMARY KEY,
   year INT NOT NULL,
   volume INT NOT NULL,
   issue_number INT NOT NULL,
   title VARCHAR(500),
   published_at DATE,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  UNIQUE(year, volume, issue_number)
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY unique_issue (year, volume, issue_number)
 );
 
-CREATE TABLE articles (
-  id SERIAL PRIMARY KEY,
-  issue_id INT REFERENCES issues(id),
+-- Articles table
+CREATE TABLE IF NOT EXISTS articles (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  issue_id INT,
   title VARCHAR(500) NOT NULL,
   abstract TEXT,
   doi VARCHAR(255),
   pdf_path VARCHAR(500),
   citation_apa TEXT,
   citation_ieee TEXT,
-  published_at TIMESTAMPTZ,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
+  published_at TIMESTAMP,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (issue_id) REFERENCES issues(id)
 );
 
-CREATE TABLE article_authors (
-  id SERIAL PRIMARY KEY,
-  article_id INT REFERENCES articles(id) ON DELETE CASCADE,
-  user_id INT REFERENCES users(id),
+-- Article Authors table
+CREATE TABLE IF NOT EXISTS article_authors (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  article_id INT NOT NULL,
+  user_id INT,
   full_name VARCHAR(255) NOT NULL,
   affiliation VARCHAR(255),
-  display_order INT DEFAULT 0
+  display_order INT DEFAULT 0,
+  FOREIGN KEY (article_id) REFERENCES articles(id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TYPE submission_status AS ENUM (
-  'submitted', 'under_review', 'revision_requested',
-  'accepted', 'rejected', 'published'
-);
-
-CREATE TABLE submissions (
-  id SERIAL PRIMARY KEY,
-  author_id INT REFERENCES users(id) NOT NULL,
+-- Submissions table
+CREATE TABLE IF NOT EXISTS submissions (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  author_id INT NOT NULL,
   title VARCHAR(500) NOT NULL,
   abstract TEXT,
   manuscript_path VARCHAR(500),
-  status submission_status DEFAULT 'submitted',
-  submitted_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
+  status ENUM('submitted', 'under_review', 'revision_requested', 'accepted', 'rejected', 'published') DEFAULT 'submitted',
+  submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (author_id) REFERENCES users(id)
 );
 
-CREATE TABLE submission_revisions (
-  id SERIAL PRIMARY KEY,
-  submission_id INT REFERENCES submissions(id) ON DELETE CASCADE,
+-- Submission Revisions table
+CREATE TABLE IF NOT EXISTS submission_revisions (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  submission_id INT NOT NULL,
   file_path VARCHAR(500) NOT NULL,
-  uploaded_at TIMESTAMPTZ DEFAULT NOW(),
-  note TEXT
+  uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  note TEXT,
+  FOREIGN KEY (submission_id) REFERENCES submissions(id) ON DELETE CASCADE
 );
 
-CREATE TABLE reviews (
-  id SERIAL PRIMARY KEY,
-  submission_id INT REFERENCES submissions(id),
-  reviewer_id INT REFERENCES users(id),
+-- Reviews table
+CREATE TABLE IF NOT EXISTS reviews (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  submission_id INT,
+  reviewer_id INT,
   recommendation VARCHAR(50),
   comment_author TEXT,
   comment_editor TEXT,
-  submitted_at TIMESTAMPTZ
+  submitted_at TIMESTAMP,
+  FOREIGN KEY (submission_id) REFERENCES submissions(id),
+  FOREIGN KEY (reviewer_id) REFERENCES users(id)
 );
 
-CREATE TABLE editorial_board (
-  id SERIAL PRIMARY KEY,
-  user_id INT REFERENCES users(id),
+-- Editorial Board table
+CREATE TABLE IF NOT EXISTS editorial_board (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
   role VARCHAR(100) NOT NULL,
   display_order INT DEFAULT 0,
-  is_active BOOLEAN DEFAULT true
+  is_active BOOLEAN DEFAULT true,
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 -- Indexes for common queries

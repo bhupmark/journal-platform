@@ -1,23 +1,41 @@
-const { Pool } = require('pg');
+const mysql = require('mysql2/promise');
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  // Add SSL for production environments (e.g. Heroku, Vercel, Neon)
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+const pool = mysql.createPool({
+  host: process.env.DB_HOST || 'localhost',
+  port: process.env.DB_PORT || 3306,
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || 'journal_db',
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
 // Test the connection on startup
-pool.query('SELECT NOW()', (err, res) => {
-  if (err) {
-    console.error('Database connection error:', err.message);
-  } else {
-    console.log('Database connected successfully at ' + res.rows[0].now);
-  }
+pool.getConnection().then(conn => {
+  conn.ping()
+    .then(() => {
+      console.log('Database connected successfully');
+      conn.release();
+    })
+    .catch(err => {
+      console.error('Database connection error:', err.message);
+      conn.release();
+    });
+}).catch(err => {
+  console.error('Database pool error:', err.message);
 });
 
 module.exports = {
-  query: (text, params) => pool.query(text, params),
+  query: async (sql, params = []) => {
+    const conn = await pool.getConnection();
+    try {
+      const [rows] = await conn.execute(sql, params);
+      return { rows, rowCount: rows.length };
+    } finally {
+      conn.release();
+    }
+  },
   pool,
-  // Helper to get a client from the pool (for transactions)
-  getClient: () => pool.connect()
+  getConnection: () => pool.getConnection()
 };
