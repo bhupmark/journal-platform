@@ -38,7 +38,8 @@ app.use('/', panelsRouter);
 // Page routes - serve HTML from public/pages
 const pages = [
   '', 'about', 'editorial-board', 'submit', 'issues', 'guidelines',
-  'indexing', 'contact', 'login', 'register', 'track', 'dashboard'
+  'indexing', 'contact', 'login', 'register', 'track', 'dashboard',
+  'admin', 'editor', 'reviewer-portal', 'reviewer'
 ];
 pages.forEach(p => {
   const name = p || 'index';

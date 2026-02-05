@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reviewer Portal | Journal of Research</title>
+  <meta name="description" content="Peer review dashboard for evaluating submissions.">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="antialiased">
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+      <a href="/" class="font-heading text-xl font-semibold text-[var(--color-primary)]">Journal of Research</a>
+      <nav data-nav class="flex flex-wrap items-center gap-6 text-slate-600">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/about" class="nav-link">About</a>
+        <a href="/editorial-board" class="nav-link">Editorial Board</a>
+        <a href="/submit" class="nav-link">Submit</a>
+        <a href="/issues" class="nav-link">Issues</a>
+        <a href="/guidelines" class="nav-link">Guidelines</a>
+        <a href="/indexing" class="nav-link">Indexing</a>
+        <a href="/contact" class="nav-link">Contact</a>
+        <a href="/login" class="nav-link">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <div class="mb-8">
+      <h1 class="font-heading text-4xl text-[var(--color-primary)] mb-3">Reviewer Portal</h1>
+      <p class="text-slate-600">Access assigned submissions, provide peer reviews, and contribute to academic excellence.</p>
+    </div>
+
+    <!-- Reviewer Stats -->
+    <div class="grid md:grid-cols-4 gap-6 mb-8">
+      <div class="bg-white rounded-lg border border-slate-200 p-6 shadow-sm">
+        <div class="text-3xl mb-2">📋</div>
+        <div class="text-2xl font-bold text-[var(--color-primary)]">7</div>
+        <p class="text-slate-600">Assigned Reviews</p>
+      </div>
+      <div class="bg-white rounded-lg border border-slate-200 p-6 shadow-sm">
+        <div class="text-3xl mb-2">✅</div>
+        <div class="text-2xl font-bold text-[var(--color-primary)]">23</div>
+        <p class="text-slate-600">Reviews Completed</p>
+      </div>
+      <div class="bg-white rounded-lg border border-slate-200 p-6 shadow-sm">
+        <div class="text-3xl mb-2">⏰</div>
+        <div class="text-2xl font-bold text-[var(--color-primary)]">3</div>
+        <p class="text-slate-600">Pending Reviews</p>
+      </div>
+      <div class="bg-white rounded-lg border border-slate-200 p-6 shadow-sm">
+        <div class="text-3xl mb-2">⭐</div>
+        <div class="text-2xl font-bold text-[var(--color-primary)]">4.8</div>
+        <p class="text-slate-600">Review Quality Score</p>
+      </div>
+    </div>
+
+    <!-- Current Assignments -->
+    <div class="bg-white rounded-lg border border-slate-200 p-6 shadow-sm mb-6">
+      <h3 class="font-heading text-xl text-[var(--color-primary)] mb-4">Current Review Assignments</h3>
+      <div class="space-y-4">
+        <div class="border border-slate-200 rounded-lg p-4">
+          <div class="flex justify-between items-start mb-2">
+            <h4 class="font-semibold text-slate-800">Machine Learning Applications in Climate Modeling</h4>
+            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-xs">In Progress</span>
+          </div>
+          <p class="text-slate-600 text-sm mb-2">Authors: Dr. Sarah Johnson, Prof. Michael Chen</p>
+          <p class="text-slate-600 text-sm mb-3">Due: March 15, 2025</p>
+          <div class="flex gap-2">
+            <a href="#" class="px-4 py-2 bg-[var(--color-primary)] text-white rounded text-sm hover:bg-opacity-90">Review Submission</a>
+            <a href="#" class="px-4 py-2 border border-slate-300 text-slate-700 rounded text-sm hover:bg-slate-50">Download Manuscript</a>
+          </div>
+        </div>
+
+        <div class="border border-slate-200 rounded-lg p-4">
+          <div class="flex justify-between items-start mb-2">
+            <h4 class="font-semibold text-slate-800">Ethics of AI in Healthcare Decision Making</h4>
+            <span class="px-2 py-1 bg-green-100 text-green-800 rounded text-xs">Completed</span>
+          </div>
+          <p class="text-slate-600 text-sm mb-2">Authors: Dr. Emily Rodriguez, Dr. James Wilson</p>
+          <p class="text-slate-600 text-sm mb-3">Completed: February 28, 2025</p>
+          <div class="flex gap-2">
+            <a href="#" class="px-4 py-2 border border-slate-300 text-slate-700 rounded text-sm hover:bg-slate-50">View Review</a>
+          </div>
+        </div>
+
+        <div class="border border-slate-200 rounded-lg p-4">
+          <div class="flex justify-between items-start mb-2">
+            <h4 class="font-semibold text-slate-800">Sustainable Materials for Green Construction</h4>
+            <span class="px-2 py-1 bg-red-100 text-red-800 rounded text-xs">Overdue</span>
+          </div>
+          <p class="text-slate-600 text-sm mb-2">Authors: Prof. Lisa Thompson, Dr. Robert Davis</p>
+          <p class="text-slate-600 text-sm mb-3">Due: February 20, 2025</p>
+          <div class="flex gap-2">
+            <a href="#" class="px-4 py-2 bg-red-500 text-white rounded text-sm hover:bg-opacity-90">Submit Review</a>
+            <a href="#" class="px-4 py-2 border border-slate-300 text-slate-700 rounded text-sm hover:bg-slate-50">Request Extension</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviewer Guidelines -->
+    <div class="bg-blue-50 rounded-lg border border-blue-200 p-6">
+      <h3 class="font-heading text-xl text-[var(--color-primary)] mb-4">Reviewer Guidelines</h3>
+      <ul class="space-y-2 text-slate-700">
+        <li class="flex items-start gap-2">
+          <span class="text-[var(--color-primary)] mt-1">✓</span>
+          <span>Complete reviews within the assigned timeframe (typically 2-4 weeks)</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-[var(--color-primary)] mt-1">✓</span>
+          <span>Evaluate manuscripts based on originality, methodology, significance, and clarity</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-[var(--color-primary)] mt-1">✓</span>
+          <span>Maintain confidentiality of the peer review process</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-[var(--color-primary)] mt-1">✓</span>
+          <span>Provide constructive feedback to help authors improve their work</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-[var(--color-primary)] mt-1">✓</span>
+          <span>Declare any conflicts of interest that may affect your impartiality</span>
+        </li>
+      </ul>
+    </div>
+  </main>
+
+  <footer class="bg-[var(--color-primary)] text-slate-300 py-12 px-4 mt-16">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+      <div>
+        <p class="font-heading text-white font-semibold text-lg">Journal of Research</p>
+        <p class="text-sm mt-1">ISSN 1234-5678 · Open Access · Peer Reviewed</p>
+      </div>
+      <div>
+        <p class="text-white font-medium mb-2">Quick links</p>
+        <ul class="space-y-1 text-sm">
+          <li><a href="/about">About</a></li>
+          <li><a href="/submit">Submit</a></li>
+          <li><a href="/issues">Issues</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-white font-medium mb-2">Policies</p>
+        <ul class="space-y-1 text-sm">
+          <li><a href="/guidelines">Guidelines</a></li>
+          <li><a href="/about#ethics">Ethics</a></li>
+          <li><a href="/about#copyright">Copyright</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="max-w-6xl mx-auto mt-8 pt-8 border-t border-slate-600 text-sm text-center">© 2025 Journal of Research. All rights reserved.</p>
+  </footer>
+  <script src="/js/app.js"></script>
+</body>
+</html>
