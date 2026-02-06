@@ -48,6 +48,14 @@ pages.forEach(p => {
   });
 });
 
+// Serve .html extension routes for direct access (e.g., /guidelines.html)
+pages.forEach(p => {
+  const name = p || 'index';
+  app.get(`/${name}.html`, (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'pages', `${name}.html`));
+  });
+});
+
 // SPA-style fallback for client-side routes (optional)
 app.get('/issues/:year/:volume/:issue', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'pages', 'issues.html'));
