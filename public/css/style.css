@@ -52,3 +52,55 @@ h1, h2, h3, .font-heading {
 footer a:hover {
   text-decoration: underline;
 }
+
+/* Responsive adjustments for mobile and tablet */
+@media (max-width: 900px) {
+  .max-w-6xl, .max-w-5xl, .max-w-4xl {
+    max-width: 100vw !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  header nav[data-nav] {
+    gap: 1rem !important;
+    flex-wrap: wrap !important;
+  }
+  main, .main {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+@media (max-width: 600px) {
+  h1, .font-heading.text-4xl {
+    font-size: 2rem !important;
+  }
+  h2, .font-heading.text-2xl {
+    font-size: 1.25rem !important;
+  }
+  .grid, .md\:grid-cols-2, .md\:grid-cols-3, .lg\:grid-cols-3 {
+    display: block !important;
+  }
+  .gap-6, .gap-4, .gap-8 {
+    gap: 1rem !important;
+  }
+  .p-8, .py-12, .px-4 {
+    padding: 1rem !important;
+  }
+  .mb-12, .mb-14, .mb-6, .mb-3, .mb-4 {
+    margin-bottom: 1rem !important;
+  }
+  .rounded-xl, .rounded-lg, .rounded-2xl {
+    border-radius: 0.75rem !important;
+  }
+  .shadow-md, .shadow-lg, .shadow-sm {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+  }
+  .flex, .flex-wrap, .items-center, .justify-between, .justify-center {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  nav[data-nav] a {
+    display: block !important;
+    margin-bottom: 0.5rem !important;
+  }
+}
