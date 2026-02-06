@@ -39,7 +39,7 @@ app.use('/', panelsRouter);
 const pages = [
   '', 'about', 'editorial-board', 'submit', 'issues', 'guidelines',
   'indexing', 'contact', 'login', 'register', 'track', 'dashboard',
-  'admin', 'editor', 'reviewer-portal', 'reviewer'
+  'admin', 'editor', 'reviewer-portal', 'reviewer', 'downloads'
 ];
 pages.forEach(p => {
   const name = p || 'index';

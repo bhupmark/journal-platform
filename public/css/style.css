@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
 :root {
-  --color-primary: #1e3a5f;
+  --color-primary: #0F172A;
   --color-primary-light: #2c5282;
-  --color-accent: #c9a227;
+  --color-accent: #14b8a6;
   --color-bg: #fafbfc;
   --color-text: #1a202c;
   --font-heading: 'Crimson Pro', Georgia, serif;
